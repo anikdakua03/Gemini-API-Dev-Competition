@@ -1,0 +1,53 @@
+<p-toast position="center" [breakpoints]="{ '920px': { width: '100%'} }" />
+
+<p-dialog class="rounded-md" [modal]="true" [(visible)]="visible" (onHide)="closeDialog()" [resizable]="true"
+    [style]="{ width: '50vw', height : '60vh' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+
+    <ng-template pTemplate="header">
+        <p class="font-bold text-2xl underline">Create Your Quiz</p>
+    </ng-template>
+
+    <!-- Dialog Content Section -->
+    <form [formGroup]="quizCreationForm" novalidate autocomplete="off">
+
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="questionCount" class="font-semibold block mb-2 p-2">Question Count : </label>
+
+            <p-inputNumber formControlName="questionCount" inputId="questionCount" mode="decimal" [min]="5" [max]="25"
+                suffix=" questions" placeholder="Enter Question count" />
+            @if(quizCreationForm.controls['questionCount'].invalid && quizCreationForm.controls['questionCount'].dirty)
+            {
+            <small class="text-xl font-semibold text-[red]">Question count must be between 5 and 25.</small>
+            }
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="categoryName" class="font-semibold w-6rem mr-14">Category : </label>
+            <p-dropdown [options]="categories" appendTo="body" formControlName="categoryName" variant="filled"
+                optionLabel="value" placeholder="Select a Category" />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="questionType" class="font-semibold w-6rem mr-2">Question Type : </label>
+            <p-dropdown [options]="questionTypes" appendTo="body" formControlName="questionType" variant="filled"
+                optionLabel="value" placeholder="Select a Question Type" />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="questionLevel" class="font-semibold w-6rem mr-4">Question Level : </label>
+            <p-dropdown [options]="questionLevels" appendTo="body" formControlName="questionLevel" variant="filled"
+                optionLabel="value" placeholder="Select Question Difficulty Level" />
+        </div>
+
+    </form>
+
+    <ng-template pTemplate="footer">
+
+        <div class="flex justify-evenly">
+            <p-button type="submit" class="bg-[#3888b6] rounded-md p-2" label="Create" severity="secondary"
+                (click)="onQuizCreate()" [disabled]="quizCreationForm.invalid" />
+            <p-button class="bg-[#da402c] rounded-md p-2" label="Cancel" (click)="closeDialog()" />
+        </div>
+    </ng-template>
+
+</p-dialog>

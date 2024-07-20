@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* All Available themes from PrimeNG to use */
+/* @import "primeng/resources/themes/bootstrap4-dark-blue/theme.css"; */
+/* @import "primeng/resources/themes/bootstrap4-dark-purple/theme.css"; */
+/* This one */
+@import "primeng/resources/themes/md-dark-indigo/theme.css"; 
+
+/* @import "primeng/resources/themes/md-dark-deeppurple/theme.css"; */
+/* @import "primeng/resources/themes/mdc-dark-indigo/theme.css"; */
+/* @import "primeng/resources/themes/mdc-dark-deeppurple/theme.css"; */
+/* @import "primeng/resources/themes/lara-dark-blue/theme.css"; */
+/* @import "primeng/resources/themes/lara-dark-indigo/theme.css"; */
+/* @import "primeng/resources/themes/lara-dark-purple/theme.css"; */
+/* @import "primeng/resources/themes/lara-dark-teal/theme.css"; */
+/* @import "primeng/resources/themes/soho-dark/theme.css"; */
+/* Needed */
+@import "primeng/resources/primeng.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

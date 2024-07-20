@@ -1,0 +1,95 @@
+<div class="mt-[14px] overflow-y-hidden">
+    <div class="grid grid-flow-row grid-cols-1 md:grid-cols-4 justify-evenly content-evenly gap-4 p-6">
+
+        <div
+            class="group relative rounded-md overflow-hidden bg-gray-800 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-[purple] transition-all duration-300 group-hover:scale-[10]"></span>
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-[purple] transition-all duration-300 group-hover:bg-sky-400">
+                    <fa-icon class="fa-2xl" [icon]="q" style="color: white;"></fa-icon>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-[white] transition-all duration-300 group-hover:text-white/90">
+                    <p class="text-xl">
+                        Generate quiz based on some criteria and try playing.
+                    </p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <button (click)="openCreateQuizModal()"
+                            class="text-sky-500 cursor-pointer group-hover:bg-red-600 group-hover:rounded-md group-hover:p-2 transition-all duration-300 group-hover:text-white">Play
+                            quiz
+                            <fa-icon class="ml-2 fa-lg" [icon]="longRightArrow" style="color: white"></fa-icon>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="group relative rounded-md overflow-hidden bg-gray-800 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-[purple] transition-all duration-300 group-hover:scale-[10]"></span>
+
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-[purple] transition-all duration-300 group-hover:bg-sky-400">
+                    <fa-icon class="fa-2xl" [icon]="utensil" style="color: white;"></fa-icon>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-[white] transition-all duration-300 group-hover:text-white/90">
+                    <p class="text-xl">
+                        Generate recipe.
+                        Generate recipe.
+                        Generate recipe.
+                    </p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <a routerLink="quiz"
+                            class="text-sky-500 cursor-pointer group-hover:bg-red-600 group-hover:rounded-md group-hover:p-2 transition-all duration-300 group-hover:text-white">Generate
+                            recipe
+                            <fa-icon class="ml-2 fa-lg" [icon]="longRightArrow" style="color: white"></fa-icon>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="group relative rounded-md overflow-hidden bg-gray-800 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-[purple] transition-all duration-300 group-hover:scale-[10]"></span>
+
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-[purple] transition-all duration-300 group-hover:bg-sky-400">
+                    <fa-icon class="fa-2xl" [icon]="chat" style="color: white;"></fa-icon>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-[white] transition-all duration-300 group-hover:text-white/90">
+                    <p class="text-xl">
+                        Conversation with gemini.
+                        Conversation with gemini.
+                        Conversation with gemini.
+                    </p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <a routerLink="quiz"
+                            class="text-sky-500 cursor-pointer group-hover:bg-red-600 group-hover:rounded-md group-hover:p-2 transition-all duration-300 group-hover:text-white">Conversation
+                            <fa-icon class="ml-2 fa-lg" [icon]="longRightArrow" style="color: white"></fa-icon>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- All the Modals section -->
+<app-quiz-create [visible]="openQuizModal" (closeModal)="closeCreateQuizModal($event)"></app-quiz-create>

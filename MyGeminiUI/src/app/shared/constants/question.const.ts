@@ -1,6 +1,6 @@
 import { IDropdown } from "../../interfaces/dropdown";
 
-export const Categories: IDropdown[] = [
+export const CATEGORIES: IDropdown[] = [
     {
         id: "Anything",
         value: "Random"
@@ -115,7 +115,7 @@ export const Categories: IDropdown[] = [
     }
 ];
 
-export const QuestionTypes: IDropdown[] = [
+export const QUESTION_TYPES: IDropdown[] = [
     {
         id: "any",
         value: "Any"
@@ -134,7 +134,7 @@ export const QuestionTypes: IDropdown[] = [
     }
 ];
 
-export const QuestionLevels: IDropdown[] = [
+export const QUESTION_LEVELS: IDropdown[] = [
     {
         id: "any",
         value: "Any"

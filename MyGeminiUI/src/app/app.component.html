@@ -1,5 +1,8 @@
 <app-header />
 
+<p-toast position="top-center" [preventDuplicates]="'true'" autoZIndex="true" baseZIndex="9999"
+  [breakpoints]="{ '920px': { width: '100%' } }" />
+
 <div class="mt-[45px]">
   <router-outlet />
 </div>

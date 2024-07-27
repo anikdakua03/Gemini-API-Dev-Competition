@@ -4,12 +4,12 @@
 /* @import "primeng/resources/themes/bootstrap4-dark-blue/theme.css"; */
 /* @import "primeng/resources/themes/bootstrap4-dark-purple/theme.css"; */
 /* This one */
-@import "primeng/resources/themes/md-dark-indigo/theme.css"; 
+/* @import "primeng/resources/themes/md-dark-indigo/theme.css";  */
 
 /* @import "primeng/resources/themes/md-dark-deeppurple/theme.css"; */
 /* @import "primeng/resources/themes/mdc-dark-indigo/theme.css"; */
 /* @import "primeng/resources/themes/mdc-dark-deeppurple/theme.css"; */
-/* @import "primeng/resources/themes/lara-dark-blue/theme.css"; */
+@import "primeng/resources/themes/lara-dark-blue/theme.css";
 /* @import "primeng/resources/themes/lara-dark-indigo/theme.css"; */
 /* @import "primeng/resources/themes/lara-dark-purple/theme.css"; */
 /* @import "primeng/resources/themes/lara-dark-teal/theme.css"; */

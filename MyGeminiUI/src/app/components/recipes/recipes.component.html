@@ -1,0 +1,196 @@
+<div class="p-2">
+    <p-card class="w-auto">
+
+        <ng-template pTemplate="header">
+            <h2 class="text-2xl font-bold text-center"> 🍚 Generate some amazing recipes around the world 🍲</h2>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+
+            <form [formGroup]="recipeForm" class="p-fluid p-2">
+
+                <div class="field p-2">
+                    <label class="mb-2 font-bold text-[1.1rem]" for="chips">Enter Ingredients * : </label>
+
+                    <p-chips formControlName="ingredients" separator=","
+                        placeholder="Enter ingredients (Press enter or separate by comma)" styleClass="mt-2 py-1" />
+
+                    @if(recipeForm.controls['ingredients'].invalid && recipeForm.controls['ingredients'].touched)
+                    {
+                    <small class="p-error">
+                        Minimum one ingredient is required.
+                    </small>
+                    }
+                </div>
+
+                <div class="field">
+                    <label class="mb-2 pb-6 font-bold">Will it be a vegetarian dish or non-vegetarian dish * ?</label>
+
+                    <div class="formgrid grid">
+                        <div class="flex flex-column">
+                            @for(dishType of dishTypes; track $index)
+                            {
+                            <div class="field-checkbox gap-6">
+                                <p-radioButton [inputId]="dishType.id" name="isVeg" [value]="dishType"
+                                    styleClass="ml-4 mt-2" formControlName="isVeg" />
+
+                                <label [for]="dishType.id" class="ml-2">
+                                    {{ dishType.value }}
+                                </label>
+                            </div>
+                            }
+                        </div>
+
+                        @if(recipeForm.controls['isVeg'].invalid && recipeForm.controls['isVeg'].touched)
+                        {
+                        <small class="p-error">
+                            Must select recipe type.
+                        </small>
+                        }
+                    </div>
+                </div>
+
+                <div class="field mt-4">
+                    <label class="mb-2 font-bold" for="dishRegion">Region * : </label>
+
+                    <p-dropdown styleClass="mt-2 py-1" formControlName="dishRegion" [options]="dishRegions"
+                        optionValue="id" optionLabel="value" placeholder="Select a dish region" />
+
+                    @if(recipeForm.controls['dishRegion'].invalid && recipeForm.controls['dishRegion'].touched)
+                    {
+                    <small class="p-error">
+                        Region selection is required.
+                    </small>
+                    }
+                </div>
+
+            </form>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <div class="flex gap-6 justify-center items-center">
+                <button
+                    class="p-2 bg-[#6fbcf0] text-[#080808] font-semibold rounded-md hover:bg-[#156b6b] hover:text-white cursor-pointer"
+                    type="submit" (click)="generateRecipe()" [disabled]="recipeForm.invalid">
+                    Generate recipes
+                </button>
+
+                <button routerLink="/" class="p-2 bg-[red] rounded-md font-semibold hover:bg-[#6b1515] cursor-pointer">
+                    Back to Home
+                </button>
+            </div>
+        </ng-template>
+
+    </p-card>
+</div>
+
+
+@if(loaderService.getLoadingStatus())
+{
+<div class="p-2">
+    <div class="border-round border-1 surface-border p-4 surface-card">
+
+        <p-skeleton width="70%" styleClass="mb-2" />
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="2rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="60%" height="1rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="4rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="6rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="20px" styleClass="mb-2" />
+        </div>
+    </div>
+</div>
+}
+@else if (loaderService.getLoadingStatus() === false && generatedRecipes.length > 0)
+{
+<div class="p-2 text-2xl text-[white]">
+
+    <h1 class="p-2 text-3xl text-[yellow] font-semibold">Some Recipes You can Try :</h1>
+
+    <div class="card flex justify-content-center">
+        <p-accordion [activeIndex]="0">
+            @for(recipe of generatedRecipes; track index; let index = $index)
+            {
+            <p-accordionTab>
+
+                <ng-template pTemplate="header">
+                    {{recipe.title}}
+                </ng-template>
+
+                <div class="mb-2 p-2">
+                    <p class="font-bold text-[1.2rem]">
+                        SHORT DESCRIPTION :
+                    </p>
+                    {{recipe.shortDescription}}
+                </div>
+
+                <div class="md:flex md:flex-row md:justify-between md:items-center">
+                    <div class="mb-2 p-2">
+                        <p class="font-bold text-[1.2rem]">
+                            DISH REGION :
+                        </p>
+                        {{recipe.dishRegion}}
+                    </div>
+
+                    <div class="mb-2 p-2">
+                        <p class="font-bold text-[1.2rem]">
+                            VEGETARIAN :
+                        </p>
+                        <div class="flex justify-center items-center align-middle">
+                            @if(recipe.isVeg)
+                            {
+                            <fa-icon class="fa-xl" [icon]="tick" style="color: #62f335;"></fa-icon>
+                            }
+                            @else {
+                            <fa-icon class="fa-xl" [icon]="close" style="color: #f52121;"></fa-icon>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2 p-2">
+                    <p class="font-bold text-[1.2rem]">
+                        INGREDIENTS :
+                    </p>
+                    @for(ingredient of recipe.ingredients; track $index)
+                    {
+                    <ul class="max-w-md space-y-1 text-[white] list-disc list-inside">
+                        <li>{{ingredient}}</li>
+                    </ul>
+                    }
+                </div>
+
+                <div class="mb-2 p-2">
+                    <p class="font-bold text-[1.2rem]">
+                        INSTRUCTIONS :
+                    </p>
+                    <markdown class="text-wrap" [data]="recipe.instructions" lineNumbers lineHighlight>
+                    </markdown>
+                </div>
+
+                <div class="mb-2 p-2">
+                    <p class="font-bold text-[1.2rem]">
+                        SUMMARY :
+                    </p>
+                    {{recipe.summary}}
+                </div>
+
+            </p-accordionTab>
+            }
+        </p-accordion>
+    </div>
+</div>
+}

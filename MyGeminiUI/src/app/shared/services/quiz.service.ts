@@ -10,7 +10,7 @@ import { IQuizQuestionResponse } from '../../interfaces/quiz-question';
 })
 export class QuizService {
 
-  baseUrl: string = environment.apiBaseUrl + 'Gemini';
+  private baseUrl: string = environment.apiBaseUrl + 'Gemini';
 
   allQss$: BehaviorSubject<IQuizQuestionResponse[]> = new BehaviorSubject<IQuizQuestionResponse[]>([]);
 

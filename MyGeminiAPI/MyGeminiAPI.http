@@ -1,6 +1,6 @@
 @MyGeminiAPI_HostAddress = http://localhost:5122
 
-
+### Generating Quiz
 POST {{MyGeminiAPI_HostAddress}}/api/Gemini/generate-quiz
 Content-Type : application/json
 Accept: application/json
@@ -8,8 +8,20 @@ Accept: application/json
 {
   "questionCount": 3,
   "categoryName": "Random",
-  "questionType": "Mukltiple Options",
+  "questionType": "Multiple Options",
   "questionLevel": "Easy"
 }
 
-###
+### Generating Recipes
+POST {{MyGeminiAPI_HostAddress}}/api/Gemini/generate-recipe
+Content-Type : application/json
+Accept: application/json
+
+
+{
+  "ingredients": [
+    "Rice", "potato", "vegetables"
+  ], 
+  "isVeg": true, 
+  "dishRegion": "Indian"
+}

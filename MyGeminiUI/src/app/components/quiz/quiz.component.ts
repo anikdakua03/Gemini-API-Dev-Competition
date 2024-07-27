@@ -11,10 +11,10 @@ import { IDropdown } from '../../interfaces/dropdown';
 import { IQuizQuestionResponse } from '../../interfaces/quiz-question';
 import { IQuizResult } from '../../interfaces/quiz-result';
 import { FAIcons } from '../../shared/constants/font-awesome-icons';
-import { QuestionTypes } from '../../shared/constants/question.const';
 import { CryptingService } from '../../shared/services/crypting.service';
 import { LoaderService } from '../../shared/services/loader.service';
 import { QuizService } from '../../shared/services/quiz.service';
+import { QUESTION_TYPES } from '../../shared/constants/question.const';
 
 @Component({
   selector: 'app-quiz',
@@ -65,7 +65,7 @@ export class QuizComponent implements OnInit {
   hours: number = 0;
   timer$: any;
 
-  questionTypes: IDropdown[] = QuestionTypes;
+  questionTypes: IDropdown[] = QUESTION_TYPES;
 
   userAnswers = new Map<number, { answer: Set<string> }>();
 
@@ -84,21 +84,15 @@ export class QuizComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isQuizStarted = true;
-    this.startTimer();
-
     // get those quiz question from service
     this.quizService.allQss$.subscribe(res => {
       this.questionList = res;
     });
 
-    if (this.questionList.length < 5) {
-      // return to create quiz with more qs or other category
-      this.router.navigateByUrl("/");
-      // this.toaster.info("Please try other category or changing some options.", "Insufficient no. of questions.");
-    }
-  }
+    this.isQuizStarted = true;
+    this.startTimer();
 
+  }
 
   ngOnDestroy() {
     this.stopTimer();

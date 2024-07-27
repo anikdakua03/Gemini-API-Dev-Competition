@@ -10,7 +10,6 @@ import { QuizCreateComponent } from './quiz-create/quiz-create.component';
   selector: 'app-home',
   standalone: true,
   imports: [FontAwesomeModule, QuizCreateComponent, RouterLink, ToastModule],
-  providers: [MessageService],
   templateUrl: './home.component.html',
   styles: ``
 })

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -9,16 +8,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { IDropdown } from '../../../interfaces/dropdown';
 import { IQuizCreate } from '../../../interfaces/quiz-create';
-import { IQuizQuestionResponse } from '../../../interfaces/quiz-question';
-import { Categories, QuestionLevels, QuestionTypes } from '../../../shared/constants/question.const';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { QuizService } from '../../../shared/services/quiz.service';
+import { ToasterService } from '../../../shared/services/toaster.service';
+import { CATEGORIES, QUESTION_LEVELS, QUESTION_TYPES } from '../../../shared/constants/question.const';
 
 @Component({
   selector: 'app-quiz-create',
   standalone: true,
   imports: [ButtonModule, DropdownModule, DialogModule, InputNumberModule, ToastModule, ReactiveFormsModule],
-  providers: [MessageService],
   templateUrl: './quiz-create.component.html',
   styles: ``
 })
@@ -27,16 +25,16 @@ export class QuizCreateComponent implements OnInit {
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  categories: IDropdown[] = Categories;
+  categories: IDropdown[] = CATEGORIES;
 
-  questionTypes: IDropdown[] = QuestionTypes;
+  questionTypes: IDropdown[] = QUESTION_TYPES;
 
-  questionLevels: IDropdown[] = QuestionLevels;
+  questionLevels: IDropdown[] = QUESTION_LEVELS;
 
   quizCreationForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private quizService: QuizService, private loaderService: LoaderService,
-    private messageService: MessageService,
+    private toasterService: ToasterService,
     private router: Router) {
 
     // initialize form
@@ -71,12 +69,12 @@ export class QuizCreateComponent implements OnInit {
         this.loaderService.hideLoader();
 
         this.quizService.allQss$.next(this.shuffle(res));
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Quiz created successfully.', life: 4000 });
+        this.toasterService.showSuccess('Success', 'Quiz created successfully.');
         this.router.navigateByUrl("quiz");
         this.loaderService.hideLoader();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Unable to create quiz, please try again.', life: 4000 });
+        this.toasterService.showError('Error', 'Unable to create quiz, please try again.');
         this.loaderService.hideLoader();
       }
     });

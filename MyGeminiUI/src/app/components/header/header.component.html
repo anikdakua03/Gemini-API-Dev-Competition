@@ -1,14 +1,13 @@
 <!-- Another try of making responsive navbar -->
 <nav class="p-2 flex fixed w-[100%] top-0 z-[9999] bg-[#1f7bb8] justify-evenly items-center">
-
     <a routerLink="/" class="ml-10 text-2xl text-yellow-500 lg:text-2xl hover:scale-x-[1.1] font-bold cursor-pointer">
         Gemini Time
-    </a>
-
+        </a>
     <!-- Nav items -->
     <div class="hidden md:flex gap-4">
-        <a routerLink="/"
-            class="text-neutral-200 cursor-pointer text-lg font-semibold hover:scale-x-[1.1] hover:text-yellow-600 transition-[1s]">Try Some</a>
+        <a (click)="navigateToRandom()"
+            class="text-neutral-200 cursor-pointer text-lg font-semibold hover:scale-x-[1.1] hover:text-yellow-600 transition-[1s]">Try
+            Something Random</a>
 
     </div>
 

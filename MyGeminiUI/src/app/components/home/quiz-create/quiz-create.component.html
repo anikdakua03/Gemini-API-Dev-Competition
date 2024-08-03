@@ -12,7 +12,7 @@
             <label for="questionCount" class="mb-2 font-bold text-[1.1rem]">Question Count : </label>
 
             <p-inputNumber formControlName="questionCount" inputId="questionCount" mode="decimal" [min]="5" [max]="25"
-                suffix=" questions" placeholder="Enter Question count" />
+                suffix=" questions" placeholder="Enter Question count" required autofocus/>
             @if(quizCreationForm.controls['questionCount'].invalid && quizCreationForm.controls['questionCount'].dirty)
             {
             <small class="text-xl font-semibold text-[red]">Question count must be between 5 and 25.</small>
@@ -22,7 +22,7 @@
         <div class="field p-2">
             <label for="categoryName" class="mb-2 font-bold text-[1.1rem]">Category : </label>
             <p-dropdown [options]="categories" appendTo="body" formControlName="categoryName" variant="filled"
-                optionLabel="value" placeholder="Select a Category" />
+                optionLabel="value" placeholder="Select a Category" required autofocus/>
         </div>
 
         <div class="field p-2">

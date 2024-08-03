@@ -9,9 +9,9 @@ import { ToastModule } from 'primeng/toast';
 import { IDropdown } from '../../../interfaces/dropdown';
 import { IQuizCreate } from '../../../interfaces/quiz-create';
 import { LoaderService } from '../../../shared/services/loader.service';
-import { QuizService } from '../../../shared/services/quiz.service';
 import { ToasterService } from '../../../shared/services/toaster.service';
 import { CATEGORIES, QUESTION_LEVELS, QUESTION_TYPES } from '../../../shared/constants/question.const';
+import { GeminiService } from '../../../shared/services/gemini.service';
 
 @Component({
   selector: 'app-quiz-create',
@@ -33,7 +33,7 @@ export class QuizCreateComponent implements OnInit {
 
   quizCreationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private quizService: QuizService, private loaderService: LoaderService,
+  constructor(private fb: FormBuilder, private geminiService: GeminiService, private loaderService: LoaderService,
     private toasterService: ToasterService,
     private router: Router) {
 
@@ -64,11 +64,11 @@ export class QuizCreateComponent implements OnInit {
       questionLevel: this.quizCreationForm.value.questionLevel.id ?? "any"
     };
 
-    this.quizService.createQuiz(quizCreateBody).subscribe({
+    this.geminiService.createQuiz(quizCreateBody).subscribe({
       next: res => {
         this.loaderService.hideLoader();
 
-        this.quizService.allQss$.next(this.shuffle(res));
+        this.geminiService.allQss$.next(this.shuffle(res));
         this.toasterService.showSuccess('Success', 'Quiz created successfully.');
         this.router.navigateByUrl("quiz");
         this.loaderService.hideLoader();

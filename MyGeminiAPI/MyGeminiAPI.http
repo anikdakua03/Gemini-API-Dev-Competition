@@ -25,3 +25,33 @@ Accept: application/json
   "isVeg": true, 
   "dishRegion": "Indian"
 }
+
+### Generating Code Review
+POST {{MyGeminiAPI_HostAddress}}/api/Gemini/review-code
+Content-Type : application/json
+Accept: application/json
+
+
+{
+  "code": "CODE_SNIPPET ( may provide with some comments )"
+}
+
+
+### Conversation
+POST {{MyGeminiAPI_HostAddress}}/api/Gemini/conversation
+Content-Type : application/json
+Accept: application/json
+
+
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "YOUR_QUERY"
+        }
+      ]
+    }
+  ]
+}

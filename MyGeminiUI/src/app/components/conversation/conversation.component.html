@@ -1,0 +1,117 @@
+<div class="mt-14 min-h-[93vh]">
+    <!-- <div> -->
+    <h1 class="text-blue-600 text-2xl font-bold text-center underline">Conversation with Gemini</h1>
+
+    <div class="w-full h-32 bg-inherit"></div>
+
+    <div class="container mx-auto" style="margin-top: -128px;">
+
+        <div class="py-6 h-screen-[30vh]">
+
+            <div class="flex justify-items-stretch border border-grey rounded shadow-lg h-[80vh]">
+                <!-- Right -->
+                <div class="w-full border flex flex-col">
+
+                    <!-- Messages -->
+                    <div #scrollMe class="flex-1 overflow-auto bg-[#291d3f]">
+
+                        <div class="py-2 px-3">
+
+                            <div class="flex justify-center mb-2">
+                                <div class="rounded py-2 px-4 bg-[#291d3f]">
+                                    <p class="text-lg font-bold uppercase">
+                                        {{currDate | date : 'fullDate'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-center mb-4">
+                                <div class="rounded py-2 px-4">
+                                    <p
+                                        class="text-[16px] text-yellow-400 animate-pulse animate-infinite animate-ease-in">
+                                        Do not share any personal details and also do not refresh not to lose chat
+                                        history. This is only for educational purpose.
+                                    </p>
+                                </div>
+                            </div>
+
+                            @for(chat of allChats; track $index)
+                            {
+                            <!-- From User -->
+                            @if(chat.role === "user")
+                            {
+                            <div #item class="flex w-auto mb-2 justify-end">
+                                <div class="rounded py-2 px-3 bg-[#6d6c20]">
+                                    <p class="text-left text-lg font-bold underline text-grey-dark mt-1">
+                                        You
+                                    </p>
+                                    <p class="text-lg mt-1">
+                                        {{chat.parts[0].text}}
+                                    </p>
+                                </div>
+                            </div>
+                            }
+
+                            <!-- From Model  -->
+                            @if(chat.role === "model")
+                            {
+                            <div #item class="flex mb-2">
+                                <div class="rounded py-2 px-3 bg-[#30306e]">
+                                    <p class="text-lg text-left text-teal font-bold underline">
+                                        Model
+                                    </p>
+
+                                    <div class="text-lg mt-1 rounded-md shadow-sm">
+                                        <markdown [data]="chat.parts[0].text" lineNumbers lineHighlight clipboard
+                                            [clipboardButtonComponent]="clipBoardButton" katex [katexOptions]="options">
+                                        </markdown>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Loader -->
+                    @if(isLoading)
+                    {
+                    <div class="flex justify-center items-center bg-[#291d3f]">
+                        <fa-icon class="fa-3x" style="color: #9ea5f3; --fa-animation-duration :0.5s"
+                            [icon]="sendPaperPlane" animation="bounce"></fa-icon>
+                        <fa-icon class="fa-3x ml-2" style="color:#81c5ba; --fa-animation-duration : 1.0s"
+                            [icon]="sendPaperPlane" animation="bounce"></fa-icon>
+                        <fa-icon class="fa-3x ml-2" style="color:#7b28c9; --fa-animation-duration : 1.5s"
+                            [icon]="sendPaperPlane" animation="bounce"></fa-icon>
+
+                    </div>
+                    }
+                    <!-- Input -->
+                    <form [formGroup]="inputForm" (submit)="getAnswer()" novalidate autocomplete="off">
+
+                        <label for="chat" class="sr-only">Your message :</label>
+
+                        <div class="flex w-auto items-center px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-700">
+
+                            <textarea #myTextArea rows="1" formControlName="inputText" (input)="onInput($event)"
+                                class="block mx-4 p-2.5 h-auto w-full text-lg text-gray-900 bg-white rounded-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
+                                placeholder="Ask your query..."></textarea>
+
+                            <button type="submit" [disabled]="isLoading || !inputForm.valid"
+                                class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+
+                                <fa-icon class="fa-2x" [icon]="sendPaperPlane" style="color: #4871e2;"></fa-icon>
+
+                                <span class="sr-only">
+                                    Send message
+                                </span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

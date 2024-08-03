@@ -17,4 +17,11 @@ public static class PromptMaker
 
         return recipeMakerPrompt;
     }
+
+    public static string CodeReviewerPrompt(string code)
+    {
+        string codeReviewerPrompt = $"Review the following code {code} and provide a JSON following properties for JSON object, 'Code' where the code will be here , it may have any programming language, 'PossibleBugs' of lsit of string , 'Summary', 'Language', 'Performance' wher this will be a object where 'SpaceComplexity' and 'TimeComplexity' will be the only properties, 'Readability', 'Scalability', 'Security', 'ErrorHandling', 'Conclusion' and 'AdditionalComment' with an example snippet where all the things can be improved.";
+
+        return codeReviewerPrompt;
+    }
 }

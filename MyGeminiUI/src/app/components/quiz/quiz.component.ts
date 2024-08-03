@@ -13,13 +13,13 @@ import { IQuizResult } from '../../interfaces/quiz-result';
 import { FAIcons } from '../../shared/constants/font-awesome-icons';
 import { CryptingService } from '../../shared/services/crypting.service';
 import { LoaderService } from '../../shared/services/loader.service';
-import { QuizService } from '../../shared/services/quiz.service';
 import { QUESTION_TYPES } from '../../shared/constants/question.const';
+import { GeminiService } from '../../shared/services/gemini.service';
 
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [FontAwesomeModule, NgClass, CheckboxModule, MarkdownModule, ReactiveFormsModule, RadioButtonModule],
+  imports: [FontAwesomeModule, CheckboxModule, NgClass, MarkdownModule, ReactiveFormsModule, RadioButtonModule],
   templateUrl: './quiz.component.html',
   styles: ``
 })
@@ -72,7 +72,7 @@ export class QuizComponent implements OnInit {
   onlyOneAnsForm !: FormGroup;
   multipleAnsForm !: FormGroup;
 
-  constructor(private fb: FormBuilder, private cryptingService: CryptingService, private quizService: QuizService, private router: Router, private loaderService: LoaderService) {
+  constructor(private fb: FormBuilder, private cryptingService: CryptingService, private geminiService: GeminiService, private router: Router, private loaderService: LoaderService) {
 
     this.onlyOneAnsForm = this.fb.group({
       answer: new FormControl("")
@@ -85,7 +85,7 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     // get those quiz question from service
-    this.quizService.allQss$.subscribe(res => {
+    this.geminiService.allQss$.subscribe(res => {
       this.questionList = res;
     });
 

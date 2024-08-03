@@ -7,4 +7,8 @@ public interface IGeminiAPIService
     public Task<List<QuizQuestion>> GenerateQuiz(QuizMaker quizMaker, CancellationToken cancellationToken);
 
     public Task<List<RecipeItem>> GenerateRecipe(Recipe recipe, CancellationToken cancellationToken);
+
+    public Task<CodeReviewResponse> ReviewCode(CodeReview codeReview, CancellationToken cancellationToken);
+
+    public Task<GenAIResponse> Conversation(Conversation conversation, CancellationToken cancellationToken = default);
 }

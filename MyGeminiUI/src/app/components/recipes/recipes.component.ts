@@ -7,22 +7,21 @@ import { CardModule } from 'primeng/card';
 import { ChipsModule } from 'primeng/chips';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
 import { BehaviorSubject } from 'rxjs';
 import { IDropdown } from '../../interfaces/dropdown';
 import { IRecipe, IRecipeItem } from '../../interfaces/recipe';
 import { DISH_REGIONS, DISH_TYPES } from '../../shared/constants/recipe.constant';
 import { LoaderService } from '../../shared/services/loader.service';
-import { RecipeService } from '../../shared/services/recipe.service';
 import { ToasterService } from '../../shared/services/toaster.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FAIcons } from '../../shared/constants/font-awesome-icons';
+import { GeminiService } from '../../shared/services/gemini.service';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [ReactiveFormsModule, ChipsModule, ToastModule, RadioButtonModule, CardModule, AccordionModule, DropdownModule, SkeletonModule, MarkdownModule, FontAwesomeModule, RouterLink],
+  imports: [ReactiveFormsModule, ChipsModule, RadioButtonModule, CardModule, AccordionModule, DropdownModule, SkeletonModule, MarkdownModule, FontAwesomeModule, RouterLink],
   templateUrl: './recipes.component.html',
   styles: ``,
 })
@@ -40,7 +39,7 @@ export class RecipesComponent implements OnInit {
 
   generatedRecipes: IRecipeItem[] = [];
 
-  constructor(private fb: FormBuilder, public loaderService: LoaderService, private recipeService: RecipeService, private toasterService: ToasterService) {
+  constructor(private fb: FormBuilder, public loaderService: LoaderService, private geminiService: GeminiService, private toasterService: ToasterService) {
   }
 
   ngOnInit(): void {
@@ -58,7 +57,7 @@ export class RecipesComponent implements OnInit {
     const recipeReq: IRecipe = this.recipeForm.value;
     recipeReq.isVeg = this.recipeForm.value.isVeg.id === 'true' ? true : false;
 
-    this.recipeService.generateRecipes(recipeReq).subscribe({
+    this.geminiService.generateRecipes(recipeReq).subscribe({
       next: res => {
         this.allRecipes$.next(res);
         this.generatedRecipes = res;

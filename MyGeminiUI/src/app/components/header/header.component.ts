@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FAIcons } from '../../shared/constants/font-awesome-icons';
 import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ALL_ROUTES } from '../../shared/constants/all-route.constant';
+import { FAIcons } from '../../shared/constants/font-awesome-icons';
 
 @Component({
   selector: 'app-header',
@@ -22,13 +23,10 @@ export class HeaderComponent {
   hamburger = FAIcons.HAMBURGER;
   home = FAIcons.HOME;
   quizzer = FAIcons.QUIZZ;
-  payment = FAIcons.CREDIT_CARD;
-  ai = FAIcons.MAGIC_SPARKLES;
   c = FAIcons.C;
-  card = FAIcons.CREDIT_CARD;
   o = FAIcons.O;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   openSidebar() {
     this.isSidebarShowing = true;
@@ -38,4 +36,13 @@ export class HeaderComponent {
     this.isSidebarShowing = false;
   }
 
+  navigateToRandom() {
+    let randomRoute: string = '';
+
+    const index: number = Math.floor(Math.random() * ALL_ROUTES.length);
+
+    randomRoute = ALL_ROUTES[index];
+
+    this.router.navigateByUrl(randomRoute);
+  }
 }

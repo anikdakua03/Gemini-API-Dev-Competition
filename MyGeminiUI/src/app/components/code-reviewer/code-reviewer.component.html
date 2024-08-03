@@ -1,0 +1,182 @@
+<div class="p-2">
+    <p-card class="w-auto">
+        <ng-template pTemplate="header">
+            <h2 class="text-2xl font-bold text-center">
+                🧑🏼‍💻 Review your code & get insights 🧑🏼‍💻
+            </h2>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+            <form [formGroup]="reviewForm" class="p-fluid p-2" novalidate autocomplete="off">
+                <div class="field p-2 mb-2">
+                    <label class="mb-2 p-2 font-bold text-[1.1rem]" for="chips">Enter Your Code * :
+                    </label>
+
+                    <textarea id="code" formControlName="code" rows="5" cols="30" pInputTextarea
+                        [autoResize]="true"></textarea>
+
+                    @if(reviewForm.controls['code'].invalid &&
+                    reviewForm.controls['code'].touched) {
+                    <small class="p-error"> Field is required. </small>
+                    }
+                </div>
+            </form>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <div class="flex gap-6 justify-center items-center">
+                <button
+                    class="p-2 bg-[#6fbcf0] text-[#080808] font-semibold rounded-md hover:bg-[#156b6b] hover:text-white cursor-pointer"
+                    type="submit" (click)="generateReview()" [disabled]="reviewForm.invalid">
+                    Review
+                </button>
+
+                <button routerLink="/" class="p-2 bg-[red] rounded-md font-semibold hover:bg-[#6b1515] cursor-pointer">
+                    Back to Home
+                </button>
+            </div>
+        </ng-template>
+    </p-card>
+</div>
+
+@if(loaderService.getLoadingStatus())
+{
+<div class="p-2">
+    <div class="border-round border-1 surface-border p-4 surface-card">
+
+        <p-skeleton width="70%" styleClass="mb-2" />
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="2rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="60%" height="1rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="4rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="6rem" styleClass="mb-2" />
+        </div>
+
+        <div class="mb-2 p-2">
+            <p-skeleton width="100%" height="20px" styleClass="mb-2" />
+        </div>
+    </div>
+</div>
+}
+@else if (loaderService.getLoadingStatus() === false && reviewResult !== null)
+{
+
+<div class="mb-2 p-2">
+
+    <h1 class="p-2 text-3xl text-[yellow] font-semibold"> <-- : Review Results are here : --> </h1>
+
+    <div class="card">
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                PROGRAM :
+            </p>
+
+            <markdown class="gap-2 justify-start space-x-5 space-y-4" [data]="reviewResult.code" lineNumbers
+                lineHighlight clipboard [clipboardButtonComponent]="clipboard" katex [katexOptions]="options"
+                ngPreserveWhitespaces>
+            </markdown>
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                POSSIBLE BUGS :
+            </p>
+            @for(bug of reviewResult.possibleBugs; track $index)
+            {
+            <ul class="max-w-md space-y-1 text-[white] list-disc list-inside">
+                <li>{{bug}}</li>
+            </ul>
+            }
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                LANGUAGE :
+            </p>
+            {{reviewResult.language}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                SUMMARY :
+            </p>
+            {{reviewResult.summary}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                PERFORMANCE :
+            </p>
+            <div class="mb-2 p-2">
+                <p class="font-semibold text-[1.2rem]">
+                    TIME COMPLEXITY :
+                </p>
+                {{reviewResult.performance.timeComplexity}}
+            </div>
+
+            <div class="mb-2 p-2">
+                <p class="font-semibold text-[1.2rem]">
+                    SPACE COMPLEXITY :
+                </p>
+                {{reviewResult.performance.spaceComplexity}}
+            </div>
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                READABILITY :
+            </p>
+            {{reviewResult.readability}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                SCALABILITY :
+            </p>
+            {{reviewResult.scalability}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                ERROR HANDLING :
+            </p>
+            {{reviewResult.errorHandling}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                SECURITY :
+            </p>
+            {{reviewResult.security}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                CONCLUSION :
+            </p>
+            {{reviewResult.conclusion}}
+        </div>
+
+        <div class="mb-2 p-2">
+            <p class="font-bold text-[1.2rem] underline">
+                EXTRA :
+            </p>
+            <markdown class="gap-2 justify-start space-y-4" [data]="reviewResult.additionalComment" lineNumbers
+                lineHighlight clipboard [clipboardButtonComponent]="clipboard" katex [katexOptions]="options"
+                ngPreserveWhitespaces>
+            </markdown>
+        </div>
+    </div>
+</div>
+}

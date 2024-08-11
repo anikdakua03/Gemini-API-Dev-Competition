@@ -74,7 +74,7 @@ export class QuizCreateComponent implements OnInit {
         this.loaderService.hideLoader();
       },
       error: err => {
-        this.toasterService.showError('Error', 'Unable to create quiz, please try again.');
+        this.toasterService.showError('Error', 'Unable to create quiz, please try again in few minutes.');
         this.loaderService.hideLoader();
       }
     });

@@ -3,20 +3,20 @@ export interface IReviewCode {
 }
 
 export interface IReviewCodeResponse {
-    code: string
-    possibleBugs: string[]
-    summary: string
-    language: string
-    performance: IPerformance
-    readability: string
-    scalability: string
-    security: string
-    errorHandling: string
-    conclusion: string
-    additionalComment: string
+    Code: string
+    PossibleBugs: string[]
+    Summary: string
+    Language: string
+    Performance: IPerformance
+    Readability: string
+    Scalability: string
+    Security: string
+    ErrorHandling: string
+    Conclusion: string
+    AdditionalComment: string
 }
 
 interface IPerformance {
-    timeComplexity: string
-    spaceComplexity: string
+    TimeComplexity: string
+    SpaceComplexity: string
 }

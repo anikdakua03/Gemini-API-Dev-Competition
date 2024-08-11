@@ -81,21 +81,20 @@ export class CodeReviewerComponent {
   }
 
   generateReview() {
-    console.log("review : ", this.reviewForm.value);
     this.reviewResult = null; // remove any previous one
 
     this.loaderService.showLoader();
 
     this.geminiService.generateReview(this.reviewForm.value).subscribe({
       next: res => {
+        const parsed = JSON.parse(res.responseMessage) as IReviewCodeResponse;
         this.loaderService.hideLoader();
         this.toasterService.showSuccess("Code Reviewed", "Code reviewed successfully.");
-        this.reviewResult = res;
-
+        this.reviewResult = parsed;
       },
       error: err => {
         this.loaderService.hideLoader();
-        this.toasterService.showError("Code Review Failed", "Code review failed, pleas try again after few minutes.");
+        this.toasterService.showError("Code Review Failed", "Code review failed, please try again after few minutes.");
       }
     });
 

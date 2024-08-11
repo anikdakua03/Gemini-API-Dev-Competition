@@ -1,37 +1,84 @@
-﻿namespace MyGeminiAPI.Domain; 
+﻿using System.Text.Json.Serialization;
+
+namespace MyGeminiAPI.Domain; 
 
 public class GeminiAPIResponse
 {
-    public List<Candidate>? candidates { get; set; }
-    public PromptFeedback? promptFeedback { get; set; }
+    [JsonPropertyName("candidates")]
+    public List<Candidate>? Candidates { get; set; }
+
+    [JsonPropertyName("promptFeedback")]
+    public PromptFeedback? PromptFeedback { get; set; }
+
+    [JsonPropertyName("usageMetadata")]
+    public UsageMetadata? UsageMetadata { get; set; }
+}
+
+public class UsageMetadata
+{
+    [JsonPropertyName("promptTokenCount")]
+    public int PromptTokenCount { get; set; }
+
+    [JsonPropertyName("candidatesTokenCount")]
+    public int CandidatesTokenCount { get; set; }
+
+    [JsonPropertyName("totalTokenCount")]
+    public int TotalTokenCount { get; set; }
 }
 
 public class Candidate
 {
-    public Content? content { get; set; }
-    public string? finishReason { get; set; }
-    public int index { get; set; }
-    public List<SafetyRating>? safetyRatings { get; set; }
+    [JsonPropertyName("content")]
+    public Content? Content { get; set; }
+
+    [JsonPropertyName("finishReason")]
+    public string? FinishReason { get; set; }
+
+    [JsonPropertyName("index")]
+    public int Index { get; set; }
+
+    [JsonPropertyName("safetyRatings")]
+    public List<SafetyRating>? SafetyRatings { get; set; }
 }
 
 public class Content
 {
-    public string? role { get; set; }
-    public List<Part>? parts { get; set; }
+    [JsonPropertyName("role")]
+    public string? Role { get; set; }
+
+    [JsonPropertyName("parts")]
+    public List<Part>? Parts { get; set; }
 }
 
 public class Part
 {
-    public string? text { get; set; }
+    [JsonPropertyName("text")]
+    public string? Text { get; set; }
+
+    [JsonPropertyName("inline_data")]
+    public InlineData? InlineData { get; set; }
 }
 
 public class SafetyRating
 {
-    public string? category { get; set; }
-    public string? probability { get; set; }
+    [JsonPropertyName("category")]
+    public string? Category { get; set; }
+
+    [JsonPropertyName("probability")]
+    public string? Probability { get; set; }
 }
 
 public class PromptFeedback
 {
-    public List<SafetyRating>? safetyRatings { get; set; }
+    [JsonPropertyName("safetyRatings")]
+    public List<SafetyRating>? SafetyRatings { get; set; }
+}
+
+public class InlineData
+{
+    [JsonPropertyName("mime_type"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MimeType { get; set; }
+
+    [JsonPropertyName("data"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Data { get; set; }
 }

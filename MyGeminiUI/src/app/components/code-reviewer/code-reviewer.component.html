@@ -82,7 +82,7 @@
                 PROGRAM :
             </p>
 
-            <markdown class="gap-2 justify-start space-x-5 space-y-4" [data]="reviewResult.code" lineNumbers
+            <markdown class="gap-2 justify-start space-x-5 space-y-4" [data]="reviewResult.Code" lineNumbers
                 lineHighlight clipboard [clipboardButtonComponent]="clipboard" katex [katexOptions]="options"
                 ngPreserveWhitespaces>
             </markdown>
@@ -92,7 +92,7 @@
             <p class="font-bold text-[1.2rem] underline">
                 POSSIBLE BUGS :
             </p>
-            @for(bug of reviewResult.possibleBugs; track $index)
+            @for(bug of reviewResult.PossibleBugs; track $index)
             {
             <ul class="max-w-md space-y-1 text-[white] list-disc list-inside">
                 <li>{{bug}}</li>
@@ -104,14 +104,14 @@
             <p class="font-bold text-[1.2rem] underline">
                 LANGUAGE :
             </p>
-            {{reviewResult.language}}
+            {{reviewResult.Language}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 SUMMARY :
             </p>
-            {{reviewResult.summary}}
+            {{reviewResult.Summary}}
         </div>
 
         <div class="mb-2 p-2">
@@ -122,14 +122,14 @@
                 <p class="font-semibold text-[1.2rem]">
                     TIME COMPLEXITY :
                 </p>
-                {{reviewResult.performance.timeComplexity}}
+                {{reviewResult.Performance.TimeComplexity}}
             </div>
 
             <div class="mb-2 p-2">
                 <p class="font-semibold text-[1.2rem]">
                     SPACE COMPLEXITY :
                 </p>
-                {{reviewResult.performance.spaceComplexity}}
+                {{reviewResult.Performance.SpaceComplexity}}
             </div>
         </div>
 
@@ -137,42 +137,42 @@
             <p class="font-bold text-[1.2rem] underline">
                 READABILITY :
             </p>
-            {{reviewResult.readability}}
+            {{reviewResult.Readability}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 SCALABILITY :
             </p>
-            {{reviewResult.scalability}}
+            {{reviewResult.Scalability}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 ERROR HANDLING :
             </p>
-            {{reviewResult.errorHandling}}
+            {{reviewResult.ErrorHandling}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 SECURITY :
             </p>
-            {{reviewResult.security}}
+            {{reviewResult.Security}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 CONCLUSION :
             </p>
-            {{reviewResult.conclusion}}
+            {{reviewResult.Conclusion}}
         </div>
 
         <div class="mb-2 p-2">
             <p class="font-bold text-[1.2rem] underline">
                 EXTRA :
             </p>
-            <markdown class="gap-2 justify-start space-y-4" [data]="reviewResult.additionalComment" lineNumbers
+            <markdown class="gap-2 justify-start space-y-4" [data]="reviewResult.AdditionalComment" lineNumbers
                 lineHighlight clipboard [clipboardButtonComponent]="clipboard" katex [katexOptions]="options"
                 ngPreserveWhitespaces>
             </markdown>

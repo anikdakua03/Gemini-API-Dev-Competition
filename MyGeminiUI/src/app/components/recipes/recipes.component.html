@@ -6,13 +6,11 @@
         </ng-template>
 
         <ng-template pTemplate="content">
-
+        
             <form [formGroup]="recipeForm" class="p-fluid p-2">
-
+        
                 <div class="field p-2">
-                    <label class="mb-2 font-bold text-[1.1rem]" for="chips">Enter Ingredients * : </label>
-
-                    <p-chips formControlName="ingredients" separator=","
+                    <label class="mb-2 font-bold text-[1.1rem]" for="chips">Enter Ingredients * : </label>                    <p-chips formControlName="ingredients" separator="," [showClear]="true"
                         placeholder="Enter ingredients (Press enter or separate by comma)" styleClass="mt-2 py-1" />
 
                     @if(recipeForm.controls['ingredients'].invalid && recipeForm.controls['ingredients'].touched)
@@ -127,14 +125,14 @@
             <p-accordionTab>
 
                 <ng-template pTemplate="header">
-                    {{recipe.title}}
+                    {{recipe.Title}}
                 </ng-template>
 
                 <div class="mb-2 p-2">
                     <p class="font-bold text-[1.2rem]">
                         SHORT DESCRIPTION :
                     </p>
-                    {{recipe.shortDescription}}
+                    {{recipe.ShortDescription}}
                 </div>
 
                 <div class="md:flex md:flex-row md:justify-between md:items-center">
@@ -142,7 +140,7 @@
                         <p class="font-bold text-[1.2rem]">
                             DISH REGION :
                         </p>
-                        {{recipe.dishRegion}}
+                        {{recipe.DishRegion}}
                     </div>
 
                     <div class="mb-2 p-2">
@@ -150,7 +148,7 @@
                             VEGETARIAN :
                         </p>
                         <div class="flex justify-center items-center align-middle">
-                            @if(recipe.isVeg)
+                            @if(recipe.IsVeg)
                             {
                             <fa-icon class="fa-xl" [icon]="tick" style="color: #62f335;"></fa-icon>
                             }
@@ -165,7 +163,7 @@
                     <p class="font-bold text-[1.2rem]">
                         INGREDIENTS :
                     </p>
-                    @for(ingredient of recipe.ingredients; track $index)
+                    @for(ingredient of recipe.Ingredients; track $index)
                     {
                     <ul class="max-w-md space-y-1 text-[white] list-disc list-inside">
                         <li>{{ingredient}}</li>
@@ -177,7 +175,7 @@
                     <p class="font-bold text-[1.2rem]">
                         INSTRUCTIONS :
                     </p>
-                    <markdown class="text-wrap" [data]="recipe.instructions" lineNumbers lineHighlight>
+                    <markdown class="text-wrap" [data]="recipe.Instruction" lineNumbers lineHighlight>
                     </markdown>
                 </div>
 
@@ -185,7 +183,7 @@
                     <p class="font-bold text-[1.2rem]">
                         SUMMARY :
                     </p>
-                    {{recipe.summary}}
+                    {{recipe.Summary}}
                 </div>
 
             </p-accordionTab>

@@ -1,22 +1,24 @@
-﻿namespace MyGeminiAPI.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace MyGeminiAPI.Domain;
 
 public class CodeReviewResponse
 {
-    public required string Code { get; set; }
-    public required List<string> PossibleBugs { get; set; }
-    public required string Summary { get; set; }
-    public required string Language { get; set; }
-    public required Performance Performance { get; set; }
-    public required string Readability { get; set; }
-    public required string Scalability { get; set; }
-    public required string Security { get; set; }
-    public required string ErrorHandling { get; set; }
-    public required string Conclusion { get; set; }
-    public required string AdditionalComment { get; set; }
+    [JsonPropertyName("code")]  public required string Code { get; set; }
+     [JsonPropertyName("possibleBugs")] public required List<string> PossibleBugs { get; set; }
+     [JsonPropertyName("summary")] public required string Summary { get; set; }
+     [JsonPropertyName("language")] public required string Language { get; set; }
+     [JsonPropertyName("performance")] public required Performance Performance { get; set; }
+     [JsonPropertyName("readability")] public required string Readability { get; set; }
+     [JsonPropertyName("scalability")] public required string Scalability { get; set; }
+     [JsonPropertyName("security")] public required string Security { get; set; }
+     [JsonPropertyName("errorHandling")] public required string ErrorHandling { get; set; }
+     [JsonPropertyName("conclusion")] public required string Conclusion { get; set; }
+     [JsonPropertyName("additionalComment")] public required string AdditionalComment { get; set; }
 }
 
 public class Performance
 {
-    public required string TimeComplexity { get; set; }
-    public required string SpaceComplexity { get; set; }
+     [JsonPropertyName("timeComplexity")] public required string TimeComplexity { get; set; }
+     [JsonPropertyName("spaceComplexity")] public required string SpaceComplexity { get; set; }
 }

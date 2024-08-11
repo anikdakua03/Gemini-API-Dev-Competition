@@ -5,11 +5,11 @@ export interface IRecipe {
 }
 
 export interface IRecipeItem {
-    title: string,
-    shortDescription: string,
-    dishRegion: string
-    isVeg: boolean,
-    ingredients: string[],
-    instructions: string,
-    summary: string
+    Title: string,
+    ShortDescription: string,
+    DishRegion: string
+    IsVeg: boolean,
+    Ingredients: string[],
+    Instruction: string,
+    Summary: string
 }

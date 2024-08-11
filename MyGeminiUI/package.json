@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:MyGeminiUI": "node dist/my-gemini-ui/server/server.mjs"
+    "serve:ssr": "ng build && node dist/my-gemini-ui/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +29,7 @@
     "crypto-js": "^4.2.0",
     "express": "^4.18.2",
     "katex": "^0.16.10",
-    "marked": "^13.0.0",
+    "marked": "^13.0.3",
     "ngx-markdown": "^18.0.0",
     "primeng": "^17.18.1",
     "prismjs": "^1.29.0",

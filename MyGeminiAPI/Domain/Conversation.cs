@@ -1,6 +1,9 @@
-﻿namespace MyGeminiAPI.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace MyGeminiAPI.Domain;
 
 public class Conversation
 {
-    public List<Content>? contents { get; set; }
+    [JsonPropertyName("contents")]
+    public List<Content>? Contents { get; set; }
 }

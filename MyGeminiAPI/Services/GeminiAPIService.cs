@@ -26,25 +26,39 @@ public class GeminiAPIService : IGeminiAPIService
         var res = new List<QuizQuestion>();
         // make prompt from req body
         var quizMakingPrompt = PromptMaker.QuizMakingPrompt(quizMaker);
-        // Create JSON request content
-        var requestContent = new
+
+        // Create request body
+        var reqBody = new GeminiAPIRequest()
         {
-            contents = new[]
+            Contents = new List<Content>()
             {
-                new
+                new Content()
                 {
-                    parts = new[]
+                    Parts = new List<Part>()
                     {
-                        new
+                        new Part()
                         {
-                            text = quizMakingPrompt
+                            Text = quizMakingPrompt
                         }
                     }
                 }
+            },
+            SafetySettings = new List<SafetySetting>()
+            {
+                new SafetySetting()
+                {
+                    Category =  "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    Threshold =  "BLOCK_ONLY_HIGH"
+                }
+            },
+            GenerationConfig = new GenerationConfig()
+            {
+                //StopSequences = new List<string>() { "Title" },
+                Temperature = 0.5
             }
         };
 
-        var requestJson = JsonSerializer.Serialize(requestContent);
+        var requestJson = JsonSerializer.Serialize(reqBody);
 
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -75,30 +89,44 @@ public class GeminiAPIService : IGeminiAPIService
         }
     }
 
-    public async Task<List<RecipeItem>> GenerateRecipe(Recipe recipe, CancellationToken cancellationToken)
+    public async Task<GenAIResponse> GenerateRecipe(Recipe recipe, CancellationToken cancellationToken)
     {
         var res = new List<QuizQuestion>();
         // make prompt from req body
         var recipeMakingPrompt = PromptMaker.RecipeMakingPrompt(recipe);
-        // Create JSON request content
-        var requestContent = new
+
+        // Create request body
+        var reqBody = new GeminiAPIRequest()
         {
-            contents = new[]
+            Contents = new List<Content>()
             {
-                new
+                new Content()
                 {
-                    parts = new[]
+                    Parts = new List<Part>()
                     {
-                        new
+                        new Part()
                         {
-                            text = recipeMakingPrompt
+                            Text = recipeMakingPrompt
                         }
                     }
                 }
+            },
+            SafetySettings = new List<SafetySetting>()
+            {
+                new SafetySetting()
+                {
+                    Category =  "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    Threshold =  "BLOCK_ONLY_HIGH"
+                }
+            },
+            GenerationConfig = new GenerationConfig()
+            {
+                //StopSequences = new List<string>() { "Title" },
+                Temperature = 0.5
             }
         };
 
-        var requestJson = JsonSerializer.Serialize(requestContent);
+        var requestJson = JsonSerializer.Serialize(reqBody);
 
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -113,44 +141,53 @@ public class GeminiAPIService : IGeminiAPIService
 
             var extractedText = ExtractTextFromStringResponse(responseString);
 
-            string jsonString = extractedText!.TrimStart('`').Substring(4);
+            string jsonString = extractedText!.TrimStart('`').Substring(4).TrimEnd('`');
 
-            string neww = jsonString.Remove(jsonString.Length - 4, 4).TrimEnd('`');
+            //string neww = jsonString.Remove(jsonString.Length - 4, 4).TrimEnd('`');
 
-            var responseList = JsonSerializer.Deserialize<List<RecipeItem>>(neww);
+            //var responseList = JsonSerializer.Deserialize<List<RecipeItem>>(neww);
 
-            return responseList!;
+            return new GenAIResponse() { ResponseMessage = jsonString, Succeed = true };
         }
         else
         {
-            return new List<RecipeItem>();
+            throw new BadRequestException("Unable to generate your recipe.");
         }
     }
 
-    public async Task<CodeReviewResponse> ReviewCode(CodeReview codeReview, CancellationToken cancellationToken)
+    public async Task<GenAIResponse> ReviewCode(CodeReview codeReview, CancellationToken cancellationToken)
     {
         var res = new List<QuizQuestion>();
         // make prompt from req body
         var reviewerPrompt = PromptMaker.CodeReviewerPrompt(codeReview.Code);
-        // Create JSON request content
-        var requestContent = new
+
+        // Create request body
+        var reqBody = new GeminiAPIRequest()
         {
-            contents = new[]
+            Contents = new List<Content>()
             {
-                new
+                new Content()
                 {
-                    parts = new[]
+                    Parts = new List<Part>()
                     {
-                        new
+                        new Part()
                         {
-                            text = reviewerPrompt
+                            Text = reviewerPrompt
                         }
                     }
+                }
+            },
+            SafetySettings = new List<SafetySetting>()
+            {
+                new SafetySetting()
+                {
+                    Category =  "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    Threshold =  "BLOCK_ONLY_HIGH"
                 }
             }
         };
 
-        var requestJson = JsonSerializer.Serialize(requestContent);
+        var requestJson = JsonSerializer.Serialize(reqBody);
 
         _httpClient.DefaultRequestHeaders.Accept.Clear();
         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -165,13 +202,15 @@ public class GeminiAPIService : IGeminiAPIService
 
             var extractedText = ExtractTextFromStringResponse(responseString);
 
-            string jsonString = extractedText!.TrimStart('`').Substring(4);
+            string jsonString = extractedText!.TrimStart('`').Substring(4).TrimEnd('`');
 
-            string neww = jsonString.Remove(jsonString.Length - 4, 4).TrimEnd('`');
+            //string neww = jsonString.Remove(jsonString.Length - 4, 4).TrimEnd('`');
 
-            var reviewedResult = JsonSerializer.Deserialize<CodeReviewResponse>(neww);
+            //var reviewedResult = JsonSerializer.Deserialize<CodeReviewResponse>(neww);
 
-            return reviewedResult!;
+            //return reviewedResult!;
+
+            return new GenAIResponse () { ResponseMessage = jsonString, Succeed = true};
         }
         else
         {
@@ -181,6 +220,25 @@ public class GeminiAPIService : IGeminiAPIService
 
     public async Task<GenAIResponse> Conversation(Conversation allChats, CancellationToken cancellationToken = default)
     {
+        // Create request body
+        var reqBody = new GeminiAPIRequest()
+        {
+            Contents = allChats.Contents,
+            SafetySettings = new List<SafetySetting>()
+            {
+                new SafetySetting()
+                {
+                    Category =  "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    Threshold =  "BLOCK_ONLY_HIGH"
+                }
+            },
+            GenerationConfig = new GenerationConfig()
+            {
+                //StopSequences = new List<string>() { "Title" },
+                Temperature = 0.5
+            }
+        };
+
         var requestJson = JsonSerializer.Serialize(allChats);
 
         // Set request headers
@@ -214,17 +272,17 @@ public class GeminiAPIService : IGeminiAPIService
             throw new BadRequestException("Unable to process your query.");
         }
 
-        if (jsonData.candidates is null || jsonData.candidates.Count is 0)
+        if (jsonData.Candidates is null || jsonData.Candidates.Count is 0)
         {
             throw new BadRequestException("Unable to process your query.");
         }
 
-        if (jsonData.candidates[0].content is null || jsonData.candidates[0].content!.parts!.Count is 0)
+        if (jsonData.Candidates[0].Content is null || jsonData.Candidates[0].Content!.Parts!.Count is 0)
         {
             throw new BadRequestException("Unable to process your query.");
         }
 
-        return jsonData!.candidates![0].content!.parts![0].text!;
+        return jsonData!.Candidates![0].Content!.Parts![0].Text!;
     }
 
     private List<QuizQuestion> EncryptResponse(List<QuizQuestion> quizQuestions)

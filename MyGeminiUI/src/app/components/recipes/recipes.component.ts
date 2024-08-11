@@ -59,8 +59,9 @@ export class RecipesComponent implements OnInit {
 
     this.geminiService.generateRecipes(recipeReq).subscribe({
       next: res => {
-        this.allRecipes$.next(res);
-        this.generatedRecipes = res;
+        const parsed = JSON.parse(res.responseMessage) as IRecipeItem[];
+        this.allRecipes$.next(parsed);
+        this.generatedRecipes = parsed;
         this.loaderService.hideLoader();
         this.toasterService.showSuccess('Successfully Generated', "Recipes generated successfully.");
       },

@@ -25,12 +25,12 @@ export class GeminiService {
     return this.httpClient.post<IQuizQuestionResponse[]>(this.baseUrl + '/generate-quiz', reqBody, { withCredentials: true });
   }
 
-  generateRecipes(reqBody: IRecipe): Observable<IRecipeItem[]> {
-    return this.httpClient.post<IRecipeItem[]>(this.baseUrl + '/generate-recipe', reqBody, { withCredentials: true });
+  generateRecipes(reqBody: IRecipe): Observable<GenAIResponse> {
+    return this.httpClient.post<GenAIResponse>(this.baseUrl + '/generate-recipe', reqBody, { withCredentials: true });
   }
 
-  generateReview(reqBody: IReviewCode): Observable<IReviewCodeResponse> {
-    return this.httpClient.post<IReviewCodeResponse>(this.baseUrl + '/review-code', reqBody, { withCredentials: true });
+  generateReview(reqBody: IReviewCode): Observable<GenAIResponse> {
+    return this.httpClient.post<GenAIResponse>(this.baseUrl + '/review-code', reqBody, { withCredentials: true });
   }
 
   conversationAndAnswer(askQuery: object): Observable<GenAIResponse> {

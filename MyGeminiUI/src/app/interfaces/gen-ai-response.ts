@@ -1,5 +1,5 @@
 export interface GenAIResponse {
     responseMessage: string;
-    errorMessage: string;
+    errorMessage: string | null;
     succeed: boolean;
 }

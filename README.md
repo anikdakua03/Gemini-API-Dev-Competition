@@ -18,3 +18,12 @@ This application is for [**Gemini API Developer Competition**](https://ai.google
 3. Can do conversation like question and answer.
 
 4. Can give our code snippet to review and get some insights like performance, possible issues, readbilites.
+
+## More About :
+
+[Youtube Link](https://youtu.be/64ymYHR1cpw)
+
+OR :
+
+https://github.com/user-attachments/assets/923d2f80-5ed1-4ad2-b2f7-41d9b705776a
+
